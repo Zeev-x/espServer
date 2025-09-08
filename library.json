@@ -1,0 +1,19 @@
+{
+  "name": "espServer",
+  "version": "1.0.5",
+  "description": "Library untuk ESP32/ESP8266 dengan auto upload FS",
+  "keywords": ["esp32", "esp8266", "filesystem", "webserver"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zeev-x/xrey.git"
+  },
+  "frameworks": "arduino",
+  "platforms": ["espressif32", "espressif8266"],
+  "dependencies": [
+    "me-no-dev/AsyncTCP",
+    "me-no-dev/ESPAsyncTCP",
+    "me-no-dev/ESPAsyncWebServer",
+    "bblanchon/ArduinoJson @ ^6.21.0"
+  ],
+  "extra_scripts": "scripts/upload_fs.py"
+}
