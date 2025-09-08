@@ -1,6 +1,6 @@
 {
   "name": "espServer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Library untuk ESP32/ESP8266 dengan auto upload FS",
   "keywords": ["esp32", "esp8266", "filesystem", "webserver"],
   "repository": {
@@ -17,3 +17,4 @@
   ],
   "extra_scripts": "scripts/upload_fs.py"
 }
+
