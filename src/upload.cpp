@@ -219,18 +219,21 @@ const uploadList = document.getElementById('uploadList');
 )rawliteral";
 
 void handleUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
-
   String folder = String(upload_folder);
 
+  // Pastikan folder ada
   if (!SD.exists(folder)) {
     SD.mkdir(folder);
   }
 
+  // Path file yang konsisten
+  String filepath = folder + "/" + filename;
+
+  // Chunk pertama → hapus file lama, lalu buat file baru
   if (!index) {
-    Serial.printf("📂 Mulai upload: %s\n", filename.c_str());
-    // Hapus file lama (jika ada) & buat file baru
-    SD.remove(folder  + "/" + filename);
-    File file = SD.open(folder + filename, FILE_WRITE);
+    Serial.printf("📂 Mulai upload: %s\n", filepath.c_str());
+    SD.remove(filepath);
+    File file = SD.open(filepath, FILE_WRITE);
     if (!file) {
       Serial.println("❌ Gagal membuat file di SD");
       return;
@@ -238,11 +241,12 @@ void handleUpload(AsyncWebServerRequest *request, String filename, size_t index,
     file.close();
   }
 
+  // Tambah data ke file
   #if defined(ESP32)
-  File file = SD.open(folder + "/" + filename, FILE_APPEND);
+    File file = SD.open(filepath, FILE_APPEND);
   #elif defined(ESP8266)
-  File file = SD.open(folder + "/" + filename, FILE_WRITE);
-  file.seek(file.size());
+    File file = SD.open(filepath, FILE_WRITE);
+    file.seek(file.size());
   #endif
 
   if (file) {
@@ -250,8 +254,9 @@ void handleUpload(AsyncWebServerRequest *request, String filename, size_t index,
     file.close();
   }
 
+  // Selesai upload
   if (final) {
-    Serial.printf("✅ Upload selesai: %s (%u bytes)\n", filename.c_str(), (unsigned int)(index + len));
+    Serial.printf("✅ Upload selesai: %s (%u bytes)\n", filepath.c_str(), (unsigned int)(index + len));
     request->send(200, "text/plain", "Upload OK: " + filename);
   }
 }
@@ -280,4 +285,5 @@ void uploadFile(){
     },
     handleUpload
   );
+
 }
