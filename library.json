@@ -5,7 +5,7 @@
   "keywords": ["esp32", "esp8266", "filesystem", "webserver"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Zeev-x/xrey.git"
+    "url": "https://github.com/Zeev-x/espServer.git"
   },
   "frameworks": "arduino",
   "platforms": ["espressif32", "espressif8266"],
@@ -17,4 +17,5 @@
   ],
   "extra_scripts": "scripts/upload_fs.py"
 }
+
 
