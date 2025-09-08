@@ -4,7 +4,7 @@ import urllib.request
 import shutil
 
 project_data_dir = os.path.join(env['PROJECT_DIR'], "data")
-file_url = "https://raw.githubusercontent.com/Zeev-x/xrey/refs/heads/main/data/upload.jpg"
+file_url = "https://raw.githubusercontent.com/Zeev-x/espServer/refs/heads/main/data/upload.jpg"
 file_path = os.path.join(project_data_dir, "upload.jpg")
 
 def before_upload(source, target, env):
@@ -31,3 +31,4 @@ def before_upload(source, target, env):
         print(">>> Folder data dihapus setelah upload.")
 
 env.AddPreAction("upload", before_upload)
+
